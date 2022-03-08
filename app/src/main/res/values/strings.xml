@@ -3,5 +3,7 @@
     <string name="label_principal">Tasas de Cambio</string>
     <string name="label_convertir">Convertir</string>
     <string name="label_a">a</string>
-
+    <string name="label_calculator">Calculadora</string>
+    <string name="label_fxrates">FX Rates</string>
+    <string name="label_calcular">Calcular</string>
 </resources>

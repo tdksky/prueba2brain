@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Calculator">
+
+    <TextView
+        android:id="@+id/label_calculator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/label_calculator"
+        android:textSize="25sp"
+        android:layout_marginTop="7dp"
+        android:textColor="@color/azul_principal"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/text_cantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/label_calculator"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="25sp"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="90dp"
+        />
+
+    <Spinner
+        android:id="@+id/spinner_cambiario3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/label_calculator"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="25sp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="150dp"
+        />
+
+    <Spinner
+        android:id="@+id/spinner_cambiario4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/spinner_cambiario3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="25sp"
+        android:layout_marginTop="150dp"
+        />
+
+    <ImageButton
+        android:id="@+id/button_1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="120dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_rates"
+        />
+
+    <ImageButton
+        android:id="@+id/button_2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_calculator"
+        />
+    <TextView
+        android:id="@+id/label_fxrates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/button_1"
+        app:layout_constraintStart_toStartOf="@id/button_1"
+        app:layout_constraintEnd_toEndOf="@id/button_1"
+        android:text="@string/label_fxrates"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/label_calcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/button_2"
+        app:layout_constraintStart_toStartOf="@id/button_2"
+        app:layout_constraintEnd_toEndOf="@id/button_2"
+        android:text="@string/label_calcular"
+        android:textSize="20sp"
+        android:layout_marginTop="0dp"
+        android:textStyle="bold"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
