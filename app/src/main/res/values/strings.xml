@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">prueba2brain</string>
-    <string name="saludos_joel">Saludos amigos</string>
-    <string name="nombre_joel">Joel Enrique</string>
-    <string name="apellido_joel">Garcia Garaban</string>
+    <string name="label_principal">Tasas de Cambio</string>
+    <string name="label_convertir">Convertir</string>
+    <string name="label_a">a</string>
+
 </resources>
