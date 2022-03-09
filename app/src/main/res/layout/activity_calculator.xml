@@ -29,6 +29,8 @@
         android:textSize="25sp"
         android:layout_marginTop="150dp"
         android:layout_marginStart="90dp"
+        android:textColor="@color/black"
+
         />
 
     <Spinner
@@ -84,6 +86,7 @@
         android:text="@string/label_fxrates"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         />
 
     <TextView
@@ -97,6 +100,7 @@
         android:textSize="20sp"
         android:layout_marginTop="0dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
