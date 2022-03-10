@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import com.tdk.prueba2brain.MainActivity
 import com.tdk.prueba2brain.R
+import com.tdk.prueba2brain.adapter.CustomDropDownAdapter
 import com.tdk.prueba2brain.model.GeneralRatesResponse
 import com.tdk.prueba2brain.network.ApiInterface
 import kotlinx.android.synthetic.main.activity_calculator.*
@@ -55,15 +56,13 @@ class CalculatorActivity : AppCompatActivity() {
     }
 
     private fun setUpSpinner3(list: List<String>){
-        val adapter3 = ArrayAdapter(this,
-            android.R.layout.simple_spinner_item, list)
-        spinner_cambiario3.adapter = adapter3
+        val customDropDownAdapter = CustomDropDownAdapter(this, list)
+        spinner_cambiario3.adapter = customDropDownAdapter
 
     }
     private fun setUpSpinner4(list: List<String>){
-        val adapter4 = ArrayAdapter(this,
-            android.R.layout.simple_spinner_item, list)
-        spinner_cambiario4.adapter = adapter4
+        val customDropDownAdapter = CustomDropDownAdapter(this, list)
+        spinner_cambiario4.adapter = customDropDownAdapter
 
     }
 }

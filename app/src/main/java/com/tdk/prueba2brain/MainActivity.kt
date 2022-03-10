@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import com.tdk.prueba2brain.adapter.CustomDropDownAdapter
 import com.tdk.prueba2brain.model.GeneralRatesResponse
 import com.tdk.prueba2brain.network.ApiInterface
 import com.tdk.prueba2brain.ui.CalculatorActivity
@@ -55,15 +56,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpSpinner1(list: List<String>){
-        val adapter = ArrayAdapter(this,
-            android.R.layout.simple_spinner_item, list)
-        spinner_cambiario.adapter = adapter
-        //spinner_cambiario2.adapter = adapter
+        val customDropDownAdapter = CustomDropDownAdapter(this, list)
+        spinner_cambiario.adapter = customDropDownAdapter
+
     }
     private fun setUpSpinner2(list: List<String>){
-        val adapter2 = ArrayAdapter(this,
-            android.R.layout.simple_spinner_item, list)
-        spinner_cambiario2.adapter = adapter2
+
+        val customDropDownAdapter = CustomDropDownAdapter(this, list)
+        spinner_cambiario2.adapter = customDropDownAdapter
+
 
     }
 }
