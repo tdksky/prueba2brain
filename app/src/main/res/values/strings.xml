@@ -6,4 +6,9 @@
     <string name="label_calculator">Calculadora</string>
     <string name="label_fxrates">FX Rates</string>
     <string name="label_calcular">Calcular</string>
+    <string name="label_fxrates2">FX Rates</string>
+    <string name="label_calcular2">Calcular</string>
+    <string name= "label_price">Total 1</string>
+    <string name= "label_price2">Total 2</string>
+    <string name= "label_price3">Total 3</string>
 </resources>

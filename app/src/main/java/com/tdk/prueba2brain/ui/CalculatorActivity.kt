@@ -1,31 +1,31 @@
-package com.tdk.prueba2brain
+package com.tdk.prueba2brain.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import com.tdk.prueba2brain.MainActivity
+import com.tdk.prueba2brain.R
 import com.tdk.prueba2brain.model.GeneralRatesResponse
 import com.tdk.prueba2brain.network.ApiInterface
-import com.tdk.prueba2brain.ui.CalculatorActivity
 import kotlinx.android.synthetic.main.activity_calculator.*
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class CalculatorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_calculator)
         callApi()
-        button_calcular.setOnClickListener(){
-            val intent = Intent(this, CalculatorActivity::class.java)
+        button_fxrates.setOnClickListener(){
+            val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
     }
-
     override fun onStart() {
         super.onStart()
 
@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity() {
     private fun callApi(){
         val apiInterface = ApiInterface.create().getLatestRates()
 
-        apiInterface.enqueue( object : Callback<GeneralRatesResponse>{
+        apiInterface.enqueue( object : Callback<GeneralRatesResponse> {
             override fun onResponse(call: Call<GeneralRatesResponse>?, response: Response<GeneralRatesResponse>?) {
 
                 if(response?.body() != null){
                     Log.i("JOELAPI EXITOSO", response.body().toString())
-                    setUpSpinner1(response.body().rates.keys.toList())
-                    setUpSpinner2(response.body().rates.keys.toList())
+                    setUpSpinner3(response.body().rates.keys.toList())
+                    setUpSpinner4(response.body().rates.keys.toList())
                 }
 
             }
@@ -54,16 +54,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setUpSpinner1(list: List<String>){
-        val adapter = ArrayAdapter(this,
+    private fun setUpSpinner3(list: List<String>){
+        val adapter3 = ArrayAdapter(this,
             android.R.layout.simple_spinner_item, list)
-        spinner_cambiario.adapter = adapter
-        //spinner_cambiario2.adapter = adapter
+        spinner_cambiario3.adapter = adapter3
+
     }
-    private fun setUpSpinner2(list: List<String>){
-        val adapter2 = ArrayAdapter(this,
+    private fun setUpSpinner4(list: List<String>){
+        val adapter4 = ArrayAdapter(this,
             android.R.layout.simple_spinner_item, list)
-        spinner_cambiario2.adapter = adapter2
+        spinner_cambiario4.adapter = adapter4
 
     }
 }
