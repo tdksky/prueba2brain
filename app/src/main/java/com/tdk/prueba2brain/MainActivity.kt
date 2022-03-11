@@ -4,7 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewParent
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.tdk.prueba2brain.adapter.CustomDropDownAdapter
 import com.tdk.prueba2brain.model.GeneralRatesResponse
 import com.tdk.prueba2brain.network.ApiInterface
@@ -14,8 +18,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+    var ratesItem : Map<String, Double> = mapOf()
+    var spinnerOrigenValue : Double? = 0.0
+    var spinnerDestinoValue : Double? = 0.0
+    val df = DecimalFormat("#.###")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,7 +35,10 @@ class MainActivity : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
+        spinner_cambiario.onItemSelectedListener = this
+        spinner_cambiario2.onItemSelectedListener = this
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -42,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                     Log.i("JOELAPI EXITOSO", response.body().toString())
                     setUpSpinner1(response.body().rates.keys.toList())
                     setUpSpinner2(response.body().rates.keys.toList())
+                    ratesItem = response.body().rates
                 }
 
             }
@@ -66,5 +80,31 @@ class MainActivity : AppCompatActivity() {
         spinner_cambiario2.adapter = customDropDownAdapter
 
 
+    }
+
+    override fun onItemSelected(parent : AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        when(parent?.id){
+            R.id.spinner_cambiario-> {
+
+                spinnerOrigenValue = ratesItem[spinner_cambiario.selectedItem]
+                if(spinnerDestinoValue != null){
+
+                    calculoRate(spinnerOrigenValue!!, spinnerDestinoValue!!)
+                }
+            }
+            R.id.spinner_cambiario2->{
+                spinnerDestinoValue = ratesItem[spinner_cambiario2.selectedItem]
+                calculoRate(spinnerOrigenValue!!, spinnerDestinoValue!!)
+            }
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+    }
+
+    private fun calculoRate(origen: Double, destino: Double){
+        label_destino.text = df.format((1/origen)*destino)
+        label_origen.text = "1"
     }
 }

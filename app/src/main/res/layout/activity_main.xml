@@ -89,8 +89,8 @@
         >
 
         <TextView
-            android:id="@+id/label_price"
-            android:layout_width="match_parent"
+            android:id="@+id/label_origen"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -104,10 +104,23 @@
             android:gravity="center"/>
 
         <TextView
-            android:id="@+id/label_price2"
+            android:id="@+id/label_origen_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/label_price"
+            android:textColor="@color/black"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/label_origen"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="25dp"/>
+
+        <TextView
+            android:id="@+id/label_destino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/label_price"
+            app:layout_constraintTop_toBottomOf="@id/label_origen"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/label_price2"
             android:textSize="45sp"
