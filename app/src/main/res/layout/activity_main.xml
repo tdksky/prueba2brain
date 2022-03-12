@@ -94,9 +94,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/label_price"
-            android:textSize="45sp"
-            android:layout_marginTop="25dp"
+            android:text="0"
+            android:textSize="30sp"
+            android:layout_marginTop="50dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:textStyle="bold"
@@ -108,28 +108,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/label_price"
+            android:text=""
             android:textColor="@color/black"
-            android:textSize="45sp"
+            android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/label_origen"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="25dp"/>
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"/>
 
         <TextView
             android:id="@+id/label_destino"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/label_origen"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/label_price2"
-            android:textSize="45sp"
+            android:text="0"
+            android:textSize="30sp"
             android:layout_marginTop="18dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/label_destino_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_origen_code" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

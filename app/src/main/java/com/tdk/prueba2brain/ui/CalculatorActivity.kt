@@ -3,7 +3,11 @@ package com.tdk.prueba2brain.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.tdk.prueba2brain.MainActivity
 import com.tdk.prueba2brain.R
@@ -15,17 +19,27 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
-class CalculatorActivity : AppCompatActivity() {
+class CalculatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+    var ratesItem : Map<String, Double> = mapOf()
+    var spinnerOrigenValue : Double? = 0.0
+    var spinnerDestinoValue : Double? = 0.0
+    val df = DecimalFormat("#.###")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculator)
         callApi()
+        textObserver()
         button_fxrates.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
+        spinner_cambiario3.onItemSelectedListener = this
+        spinner_cambiario4.onItemSelectedListener = this
     }
     override fun onStart() {
         super.onStart()
@@ -42,6 +56,7 @@ class CalculatorActivity : AppCompatActivity() {
                     Log.i("JOELAPI EXITOSO", response.body().toString())
                     setUpSpinner3(response.body().rates.keys.toList())
                     setUpSpinner4(response.body().rates.keys.toList())
+                    ratesItem = response.body().rates
                 }
 
             }
@@ -65,4 +80,51 @@ class CalculatorActivity : AppCompatActivity() {
         spinner_cambiario4.adapter = customDropDownAdapter
 
     }
+
+    override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        when(parent?.id){
+            R.id.spinner_cambiario3-> {
+
+                if (spinnerDestinoValue != null){
+
+                }
+
+            }
+            R.id.spinner_cambiario4-> {
+                spinnerDestinoValue = ratesItem[spinner_cambiario4.selectedItem]
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+
+    private fun calculoRate(origen: Double, destino: Double, cantidad: Int){
+
+        label_price3.text = df.format(((1/origen)*destino)*cantidad)
+
+    }
+
+
+    private fun textObserver() {
+        text_cantidad.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(text: Editable?) {
+                if (!text.isNullOrEmpty()){
+                    calculoRate(spinnerOrigenValue!!, spinnerDestinoValue!! , text.toString().toInt())
+                    spinnerOrigenValue = ratesItem[spinner_cambiario3.selectedItem]
+                }else{
+                    label_price3.text = "0"
+                }
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+    }
+
 }

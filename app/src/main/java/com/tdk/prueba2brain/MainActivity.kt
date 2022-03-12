@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     var spinnerOrigenValue : Double? = 0.0
     var spinnerDestinoValue : Double? = 0.0
     val df = DecimalFormat("#.###")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -90,11 +91,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 if(spinnerDestinoValue != null){
 
                     calculoRate(spinnerOrigenValue!!, spinnerDestinoValue!!)
+                    codigoRate(spinner_cambiario.selectedItem as String,spinner_cambiario2.selectedItem as String)
                 }
             }
             R.id.spinner_cambiario2->{
                 spinnerDestinoValue = ratesItem[spinner_cambiario2.selectedItem]
                 calculoRate(spinnerOrigenValue!!, spinnerDestinoValue!!)
+                codigoRate(spinner_cambiario.selectedItem as String,spinner_cambiario2.selectedItem as String)
             }
         }
     }
@@ -106,5 +109,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun calculoRate(origen: Double, destino: Double){
         label_destino.text = df.format((1/origen)*destino)
         label_origen.text = "1"
+    }
+
+    private fun codigoRate(origen: String, destino: String){
+        label_origen_code.text = origen
+        label_destino_code.text = destino
+
     }
 }

@@ -32,7 +32,7 @@
         android:layout_marginStart="50dp"
         android:textColor="@color/black"
         android:background="@drawable/rounded_corner_background"
-
+        android:inputType="number"
         />
 
     <Spinner
@@ -72,7 +72,7 @@
             android:id="@+id/label_price3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_price3"
+            android:text="0"
             android:textSize="45sp"
             app:layout_constraintTop_toBottomOf="@id/spinner_cambiario4"
             app:layout_constraintStart_toStartOf="parent"
