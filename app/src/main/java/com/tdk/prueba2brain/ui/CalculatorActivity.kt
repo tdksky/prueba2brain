@@ -84,14 +84,19 @@ class CalculatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when(parent?.id){
             R.id.spinner_cambiario3-> {
+                spinnerDestinoValue = ratesItem[spinner_cambiario3.selectedItem]
 
-                if (spinnerDestinoValue != null){
-
+                if (spinnerDestinoValue != null && spinnerOrigenValue != null && !text_cantidad.text.isNullOrEmpty()){
+                    calculoRate(spinnerOrigenValue!!, spinnerDestinoValue!! , text_cantidad.text.toString().toInt())
                 }
 
             }
             R.id.spinner_cambiario4-> {
                 spinnerDestinoValue = ratesItem[spinner_cambiario4.selectedItem]
+
+                if (spinnerDestinoValue != null && spinnerOrigenValue != null && !text_cantidad.text.isNullOrEmpty()){
+                    calculoRate(spinnerOrigenValue!!, spinnerDestinoValue!! , text_cantidad.text.toString().toInt())
+                }
             }
         }
     }
