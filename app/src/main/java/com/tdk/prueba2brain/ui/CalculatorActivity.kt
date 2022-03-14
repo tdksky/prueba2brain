@@ -1,6 +1,11 @@
 package com.tdk.prueba2brain.ui
 
+import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorManager
+import android.hardware.SensorEventListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.tdk.prueba2brain.MainActivity
 import com.tdk.prueba2brain.R
 import com.tdk.prueba2brain.adapter.CustomDropDownAdapter
@@ -20,6 +26,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.DecimalFormat
+import java.util.*
+import kotlin.math.sqrt
 
 class CalculatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -27,12 +35,23 @@ class CalculatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     var spinnerOrigenValue : Double? = 0.0
     var spinnerDestinoValue : Double? = 0.0
     val df = DecimalFormat("#.###")
+    private var sensorManager: SensorManager? = null
+    private var acceleration = 0f
+    private var currentAcceleration = 0f
+    private var lastAcceleration = 0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculator)
         callApi()
         textObserver()
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        Objects.requireNonNull(sensorManager)!!.registerListener(sensorListener, sensorManager!!
+            .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
+        acceleration = 10f
+        currentAcceleration = SensorManager.GRAVITY_EARTH
+        lastAcceleration = SensorManager.GRAVITY_EARTH
+
         button_fxrates.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -53,7 +72,6 @@ class CalculatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             override fun onResponse(call: Call<GeneralRatesResponse>?, response: Response<GeneralRatesResponse>?) {
 
                 if(response?.body() != null){
-                    Log.i("JOELAPI EXITOSO", response.body().toString())
                     setUpSpinner3(response.body().rates.keys.toList())
                     setUpSpinner4(response.body().rates.keys.toList())
                     ratesItem = response.body().rates
@@ -62,8 +80,6 @@ class CalculatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             }
 
             override fun onFailure(call: Call<GeneralRatesResponse>?, error: Throwable?) {
-
-                Log.i("JOELAPI ERROR", error.toString())
 
             }
         })
@@ -130,6 +146,40 @@ class CalculatorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
+    }
+
+    private val sensorListener: SensorEventListener = object : SensorEventListener {
+        override fun onSensorChanged(event: SensorEvent) {
+            val x = event.values[0]
+            val y = event.values[1]
+            val z = event.values[2]
+            lastAcceleration = currentAcceleration
+            currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+            val delta: Float = currentAcceleration - lastAcceleration
+            acceleration = acceleration * 0.9f + delta
+            if (acceleration > 10) {
+                Toast.makeText(applicationContext, "Shake event detected", Toast.LENGTH_SHORT).show()
+                clearData()
+            }
+        }
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+    }
+
+    override fun onResume() {
+        sensorManager?.registerListener(sensorListener, sensorManager!!.getDefaultSensor(
+            Sensor .TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
+        )
+        super.onResume()
+    }
+    override fun onPause() {
+        sensorManager!!.unregisterListener(sensorListener)
+        super.onPause()
+    }
+
+    private fun clearData(){
+
+        label_price3.text = "0"
+        text_cantidad.text.clear()
     }
 
 }
